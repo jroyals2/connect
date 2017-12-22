@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 
 class Game extends Component {
+
+    state = {
+        gameBoard: [[0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0]]
+    }
+
+    
     render() {
         return (
             <div>
-                Game Listening
+                {this.state.gameBoard}
             </div>
         );
     }
