@@ -11,18 +11,21 @@ class Landing extends Component {
 
   state = {
     users: ['Player 1', 'James'],
-    loggedIn: false
+    loggedIn: false,
+    redirect: false
   }
 
   toggleLoggedIn = () => {
     this.setState({loggedIn : !this.state.loggedIn})
   }
-
-  newGameRedirect = () => {
-    <Redirect to={'/game'}/>
+  toggleRedirect = () => {
+      this.setState({redirect: !this.state.redirect})
   }
 
   render() {
+    if (this.state.redirect) {
+        return <Redirect to='/game' />
+    }
     // this will be the view of the app when you are logged out
     const isLoggedOut = <div>
       <h3>Please select a user to get started. If you don't see your user then create a new one!</h3>
@@ -36,8 +39,8 @@ class Landing extends Component {
     // this will be the logged in view of the app
     const isLoggedIn = <div>
       <h3>Select a Game or Press New Game to Get Started!</h3>
-      <button onClick={this.newGameRedirect}>New Game</button>
-      <button onClick={this.toggleLoggedIn}>Log Out</button>
+      <button onClick={this.toggleRedirect}>New Game</button>
+      <button onClick={ () => this.toggleLoggedIn}>Log Out</button>
 
     </div>
     return (
