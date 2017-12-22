@@ -4,5 +4,5 @@ Trello Board --- https://trello.com/b/YkO501OE
 
 ERD ---
 
-WIREFRAMES --- 
+WIREFRAMES --- https://github.com/jroyals2/connect/tree/master/wireframes
 
