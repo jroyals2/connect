@@ -14,28 +14,38 @@ class Game extends Component {
         player2: false
 
     }
+    // winConditions = (i, index) => {
+    //     if (this.state.gameBoard[i][index - 1] === 1 && this.state.gameBoard[i][index - 2] === 1 && this.state.gameBoard[i][index] === 1 && this.state.gameBoard[i][index + 1] === 1){
+    //         console.log("player 1 wins") 
+    //     }
+    // }
 
     playerMove = (index) => {
         if (this.state.player1 === true) {
-          for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
-            if (this.state.gameBoard[i][index] === 0) {
-              this.state.gameBoard[i][index] = 1;
-              this.setState({player2: true})
-              this.setState({player1: false})
-              break;
+            for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
+                if (this.state.gameBoard[i][index] === 0) {
+                    let newGameBoard = this.state.gameBoard
+                    newGameBoard[i][index] = 1;
+                    this.setState({gameBoard: newGameBoard})
+                    this.setState({ player2: true })
+                    this.setState({ player1: false })
+                    break;
+                }
             }
-          }
         } else if (this.state.player2 === true) {
-          for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
-            if (this.state.gameBoard[i][index] === 0) {
-              this.state.gameBoard[i][index] = 2;
-              this.setState({player1: true})
-              this.setState({player2: false})
-              break;
+            for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
+                if (this.state.gameBoard[i][index] === 0) {
+                    let newGameBoard = this.state.gameBoard
+                    newGameBoard[i][index] = 2;
+                    this.setState({gameBoard: newGameBoard})
+                    this.setState({ player1: true })
+                    this.setState({ player2: false })
+                    break;
+                }
             }
-          }
         }
-      };
+    };
+
     boardReset = () => {
         this.setState({
             gameBoard: [[0, 0, 0, 0, 0, 0, 0],
@@ -45,9 +55,10 @@ class Game extends Component {
             [0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0]]
         })
-        this.setState({player1: true})
-        this.setState({player2: false})
+        this.setState({ player1: true })
+        this.setState({ player2: false })
     }
+ 
 
     render() {
         return (
@@ -56,13 +67,13 @@ class Game extends Component {
                     return <div index={index}>{array}</div>
                 })}
                 <div>
-                <button onClick={()=>this.playerMove(0)}>Column1</button>
-                <button onClick={()=>this.playerMove(1)}>Column2</button>
-                <button onClick={()=>this.playerMove(2)}>Column3</button>
-                <button onClick={()=>this.playerMove(3)}>Column4</button>
-                <button onClick={()=>this.playerMove(4)}>Column5</button>
-                <button onClick={()=>this.playerMove(5)}>Column6</button>
-                <button onClick={()=>this.playerMove(6)}>Column7</button>
+                    <button onClick={() => this.playerMove(0)}>Column1</button>
+                    <button onClick={() => this.playerMove(1)}>Column2</button>
+                    <button onClick={() => this.playerMove(2)}>Column3</button>
+                    <button onClick={() => this.playerMove(3)}>Column4</button>
+                    <button onClick={() => this.playerMove(4)}>Column5</button>
+                    <button onClick={() => this.playerMove(5)}>Column6</button>
+                    <button onClick={() => this.playerMove(6)}>Column7</button>
                 </div>
                 <div><button onClick={this.boardReset}>New Game</button></div>
             </div>
