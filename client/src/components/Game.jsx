@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 class Game extends Component {
 
     state = {
-        gameBoard: [[0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0]],
+        gameBoard: [
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0]],
         player1: true,
         player2: false
 
@@ -35,6 +36,18 @@ class Game extends Component {
           }
         }
       };
+    boardReset = () => {
+        this.setState({
+            gameBoard: [[0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0]]
+        })
+        this.setState({player1: true})
+        this.setState({player2: false})
+    }
 
     render() {
         return (
@@ -42,6 +55,7 @@ class Game extends Component {
                 {this.state.gameBoard.map((array, index) => {
                     return <div index={index}>{array}</div>
                 })}
+                <div>
                 <button onClick={()=>this.playerMove(0)}>Column1</button>
                 <button onClick={()=>this.playerMove(1)}>Column2</button>
                 <button onClick={()=>this.playerMove(2)}>Column3</button>
@@ -49,6 +63,8 @@ class Game extends Component {
                 <button onClick={()=>this.playerMove(4)}>Column5</button>
                 <button onClick={()=>this.playerMove(5)}>Column6</button>
                 <button onClick={()=>this.playerMove(6)}>Column7</button>
+                </div>
+                <div><button onClick={this.boardReset}>New Game</button></div>
             </div>
         );
     }
