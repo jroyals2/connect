@@ -14,11 +14,31 @@ class Game extends Component {
         player2: false
 
     }
-    // winConditions = (i, index) => {
-    //     if (this.state.gameBoard[i][index - 1] === 1 && this.state.gameBoard[i][index - 2] === 1 && this.state.gameBoard[i][index] === 1 && this.state.gameBoard[i][index + 1] === 1){
-    //         console.log("player 1 wins") 
-    //     }
-    // }
+    winConditionColumn = () => {
+        for(let i = this.state.gameBoard.length - 1; i > 3; i--) {
+            for (let j = 0; j < 6; j++){
+                if (this.state.gameBoard[i][j] === 1 && this.state.gameBoard[i-1][j] === 1 && this.state.gameBoard[i-2][j] === 1 && this.state.gameBoard[i-3][j] === 1){
+                    console.log('player 1 wins column')
+                } else if (this.state.gameBoard[i][j] === 2 && this.state.gameBoard[i-1][j] === 2 && this.state.gameBoard[i-2][j] === 2 && this.state.gameBoard[i-3][j] === 2){
+                    console.log('player 2 wins column')
+                } else {
+                    console.log('keep it up')
+                }
+            }
+        }
+    }
+    winConditionRow = () => {
+        for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
+            for (let j = 0; j < 3; j++)
+            if (this.state.gameBoard[i][j] === 1 && this.state.gameBoard[i][j+1] === 1 && this.state.gameBoard[i][j+2] === 1 && this.state.gameBoard[i][j+3] === 1) {
+                console.log("player 1 wins rows")
+            } else if (this.state.gameBoard[i][j] === 2 && this.state.gameBoard[i][j+1] === 2 && this.state.gameBoard[i][j+2] === 2 && this.state.gameBoard[i][j+3] === 2) {
+                console.log("player 2 wins rows")
+             } else  {
+                console.log('The game is afoot')
+            }
+        }
+    }
 
     playerMove = (index) => {
         if (this.state.player1 === true) {
@@ -27,6 +47,8 @@ class Game extends Component {
                     let newGameBoard = this.state.gameBoard
                     newGameBoard[i][index] = 1;
                     this.setState({gameBoard: newGameBoard})
+                    this.winConditionRow()
+                    this.winConditionColumn()
                     this.setState({ player2: true })
                     this.setState({ player1: false })
                     break;
@@ -38,6 +60,8 @@ class Game extends Component {
                     let newGameBoard = this.state.gameBoard
                     newGameBoard[i][index] = 2;
                     this.setState({gameBoard: newGameBoard})
+                    this.winConditionRow()
+                    this.winConditionColumn()
                     this.setState({ player1: true })
                     this.setState({ player2: false })
                     break;
