@@ -1,4 +1,28 @@
 import React, { Component } from 'react';
+import styled from 'styled-components'
+
+const GameGrid = styled.div`
+display: table;         
+width: auto;         
+background-color: #eee;         
+border: 1px solid #666666;         
+border-spacing: 5px;
+
+`
+
+const GameRows = styled.div`
+display: table-row;
+width: auto;
+clear: both;
+
+`
+
+const GameColumns = styled.div`
+float: left; 
+display: table-column;         
+width: 200px;         
+background-color: #ccc;
+`
 
 class Game extends Component {
 
@@ -108,12 +132,19 @@ class Game extends Component {
  
 
     render() {
+
         return (
             <div>
+                <GameGrid>
                 {this.state.gameBoard.map((array, index) => {
-                    return <div index={index}>{array}</div>
+                    return <GameRows
+                     key={index}>{array.map((each)=>{
+                         return <GameColumns>{each}</GameColumns>
+                     })}</GameRows>
                 })}
+                </GameGrid>
                 <div>
+                    
                     <button onClick={() => this.playerMove(0)}>Column1</button>
                     <button onClick={() => this.playerMove(1)}>Column2</button>
                     <button onClick={() => this.playerMove(2)}>Column3</button>
