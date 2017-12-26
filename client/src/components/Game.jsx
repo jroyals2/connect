@@ -3,11 +3,9 @@ import styled from 'styled-components'
 
 const GameGrid = styled.div`
 display: table;         
-width: auto;         
-background-color: #eee;         
-border: 2px solid #666666;         
-border-spacing: 5px;
-padding: 10px;
+width: auto;                  
+border: 2px solid #666666;   
+font-size: 0px;      
 
 `
 const Container = styled.div`
@@ -29,28 +27,8 @@ border: 2px solid #666666;
 width: 56px;       
 height: 56px;  
 text-align: center;
-background-color: #ccc;
 `
 
-const PLayerOneChip = styled.div`
-float: left; 
-display: table-column; 
-border: 2px solid #666666;         
-width: 56px;       
-height: 56px;  
-text-align: center;
-background-color: black;
-`
-
-const PlayerTwoChip = styled.div`
-float: left; 
-display: table-column; 
-border: 2px solid #666666;         
-width: 56px;       
-height: 56px;  
-text-align: center;
-background-color: red;
-`
 
 class Game extends Component {
 
@@ -63,16 +41,20 @@ class Game extends Component {
             [0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0]],
         player1: true,
-        player2: false
+        player2: false,
+        playerOneWin: false,
+        playerTwoWin: false
 
     }
     winConditionColumn = () => {
         for(let i = this.state.gameBoard.length - 1; i > 3; i--) {
             for (let j = 0; j < 6; j++){
-                if (this.state.gameBoard[i][j] === 1 && this.state.gameBoard[i-1][j] === 1 && this.state.gameBoard[i-2][j] === 1 && this.state.gameBoard[i-3][j] === 1){
+                if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i-1][j] === 'one' && this.state.gameBoard[i-2][j] === 'one' && this.state.gameBoard[i-3][j] === 'one'){
                     console.log('player 1 wins column')
-                } else if (this.state.gameBoard[i][j] === 2 && this.state.gameBoard[i-1][j] === 2 && this.state.gameBoard[i-2][j] === 2 && this.state.gameBoard[i-3][j] === 2){
+                    this.setState({playerOneWin: true})
+                } else if (this.state.gameBoard[i][j] === 'two' && this.state.gameBoard[i-1][j] === 'two' && this.state.gameBoard[i-2][j] === 'two' && this.state.gameBoard[i-3][j] === 'two'){
                     console.log('player 2 wins column')
+                    this.setState({playerTwoWin: true})
                 } 
             }
         }
@@ -80,10 +62,12 @@ class Game extends Component {
     winConditionRow = () => {
         for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
             for (let j = 0; j < 3; j++) {
-                if (this.state.gameBoard[i][j] === 1 && this.state.gameBoard[i][j + 1] === 1 && this.state.gameBoard[i][j + 2] === 1 && this.state.gameBoard[i][j + 3] === 1) {
+                if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i][j + 1] === 'one' && this.state.gameBoard[i][j + 2] === 'one' && this.state.gameBoard[i][j + 3] === 'one') {
                     console.log("player 1 wins rows")
-                } else if (this.state.gameBoard[i][j] === 2 && this.state.gameBoard[i][j + 1] === 2 && this.state.gameBoard[i][j + 2] === 2 && this.state.gameBoard[i][j + 3] === 2) {
+                    this.setState({playerOneWin: true})
+                } else if (this.state.gameBoard[i][j] === 'two' && this.state.gameBoard[i][j + 1] === 'two' && this.state.gameBoard[i][j + 2] === 'two' && this.state.gameBoard[i][j + 3] === 'two') {
                     console.log("player 2 wins rows")
+                    this.setState({playerTwoWin: true})
                 }
             }
         }
@@ -91,10 +75,12 @@ class Game extends Component {
     winConditionDiagUp = () => {
         for (let i = this.state.gameBoard.length - 1; i > 3; i--) {
             for (let j = 0; j < 3; j++) {
-                if (this.state.gameBoard[i][j] === 1 && this.state.gameBoard[i - 1][j + 1] === 1 && this.state.gameBoard[i - 2][j + 2] === 1 && this.state.gameBoard[i - 3][j + 3] === 1) {
+                if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i - 1][j + 1] === 'one' && this.state.gameBoard[i - 2][j + 2] === 'one' && this.state.gameBoard[i - 3][j + 3] === 'one') {
                     console.log('Player 1 wins Diag Up')
-                } else if (this.state.gameBoard[i][j] === 2 && this.state.gameBoard[i - 1][j + 1] === 2 && this.state.gameBoard[i - 2][j + 2] === 2 && this.state.gameBoard[i - 3][j + 3] === 2) {
+                    this.setState({playerOneWin: true})
+                } else if (this.state.gameBoard[i][j] === 'two' && this.state.gameBoard[i - 1][j + 1] === 'two' && this.state.gameBoard[i - 2][j + 2] === 'two' && this.state.gameBoard[i - 3][j + 3] === 'two') {
                     console.log('Player 2 wins Diag Up')
+                    this.setState({playerTwoWin: true})
                 }
             }
         }
@@ -102,25 +88,25 @@ class Game extends Component {
     winConditionDiagDown = () => {
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                if (this.state.gameBoard[i][j] === 1 && this.state.gameBoard[i + 1][j + 1] === 1 && this.state.gameBoard[i + 2][j + 2] === 1 && this.state.gameBoard[i + 3][j + 3] === 1) {
+                if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i + 1][j + 1] === 'one' && this.state.gameBoard[i + 2][j + 2] === 'one' && this.state.gameBoard[i + 3][j + 3] === 'one') {
                     console.log('Player 1 wins Diag Down')
-                } else if (this.state.gameBoard[i][j] === 2 && this.state.gameBoard[i + 1][j + 1] === 2 && this.state.gameBoard[i + 2][j + 2] === 2 && this.state.gameBoard[i + 3][j + 3] === 2) {
+                    this.setState({playerOneWin: true})
+                } else if (this.state.gameBoard[i][j] === 'two' && this.state.gameBoard[i + 1][j + 1] === 'two' && this.state.gameBoard[i + 2][j + 2] === 'two' && this.state.gameBoard[i + 3][j + 3] === 'two') {
                     console.log('Player 2 wins Diag Down')
+                    this.setState({playerTwoWin: true})
                 }
             }
         }
     }
-    updateBoard = () => {
 
-    }
+
     playerMove = (index) => {
         if (this.state.player1 === true) {
             for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
                 if (this.state.gameBoard[i][index] === 0) {
                     let newGameBoard = this.state.gameBoard
-                    newGameBoard[i][index] = 1;
+                    newGameBoard[i][index] = 'one';
                     this.setState({gameBoard: newGameBoard})
-                    this.updateBoard()
                     this.winConditionRow()
                     this.winConditionColumn()
                     this.winConditionDiagUp()
@@ -134,9 +120,8 @@ class Game extends Component {
             for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
                 if (this.state.gameBoard[i][index] === 0) {
                     let newGameBoard = this.state.gameBoard
-                    newGameBoard[i][index] = 2;
+                    newGameBoard[i][index] = 'two';
                     this.setState({gameBoard: newGameBoard})
-                    this.updateBoard()
                     this.winConditionRow()
                     this.winConditionColumn()
                     this.winConditionDiagUp()
@@ -160,33 +145,21 @@ class Game extends Component {
         })
         this.setState({ player1: true })
         this.setState({ player2: false })
+        this.setState({playerOneWin: false})
+        this.setState({playerTwoWin: false})
     }
  
 
     render() {
-        
-        // const changeColor = () => {
-        //     for (let i = 0; i < this.state.gameBoard.length; i++){
-        //         for (let j = 0; j < 6; j++){
-        //             if (this.state.gameBoard[i][j] === 1) {
-        //                 this.state.gameBoard[i][j] === <PlayerOneChip>1 </PlayerOneChip>
-        //             }
-        //         }
-        //     }
-        // }
+    
 
         return (
             <Container>
                 <GameGrid>
                 {this.state.gameBoard.map((array, index) => {
                     return <GameRows
-                     key={index}>{array.map((each)=>{
-                        if ( {each} === 1 ) 
-                        return <PLayerOneChip>{each}</PLayerOneChip>
-                        else if ({each} === 2 ) 
-                         return <PlayerTwoChip>{each}</PlayerTwoChip>
-                         else 
-                         return <GameColumns>{each}</GameColumns>
+                     key={index}>{array.map((each, index)=>{
+                         return <GameColumns key={index} className={each}>{each}</GameColumns>
                      })}</GameRows>
                 })}
                 </GameGrid>
@@ -200,7 +173,10 @@ class Game extends Component {
                     <button onClick={() => this.playerMove(5)}>Column6</button>
                     <button onClick={() => this.playerMove(6)}>Column7</button>
                 </div>
-                <div><button onClick={this.boardReset}>New Game</button></div>
+                <div><button onClick={this.boardReset}>New Game</button>
+                {this.state.playerOneWin ? <div>Player one wins!</div> : '' }
+                {this.state.playerTwoWin ? <div>Player two wins!</div> : '' }
+                </div>
             </Container>
         );
     }
