@@ -43,7 +43,8 @@ class Game extends Component {
         player1: true,
         player2: false,
         playerOneWin: false,
-        playerTwoWin: false
+        playerTwoWin: false,
+        killGame: false
 
     }
     winConditionColumn = () => {
@@ -52,9 +53,11 @@ class Game extends Component {
                 if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i-1][j] === 'one' && this.state.gameBoard[i-2][j] === 'one' && this.state.gameBoard[i-3][j] === 'one'){
                     console.log('player 1 wins column')
                     this.setState({playerOneWin: true})
+                    this.setState({killGame: true})
                 } else if (this.state.gameBoard[i][j] === 'two' && this.state.gameBoard[i-1][j] === 'two' && this.state.gameBoard[i-2][j] === 'two' && this.state.gameBoard[i-3][j] === 'two'){
                     console.log('player 2 wins column')
                     this.setState({playerTwoWin: true})
+                    this.setState({killGame: true})
                 } 
             }
         }
@@ -65,9 +68,11 @@ class Game extends Component {
                 if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i][j + 1] === 'one' && this.state.gameBoard[i][j + 2] === 'one' && this.state.gameBoard[i][j + 3] === 'one') {
                     console.log("player 1 wins rows")
                     this.setState({playerOneWin: true})
+                    this.setState({killGame: true})
                 } else if (this.state.gameBoard[i][j] === 'two' && this.state.gameBoard[i][j + 1] === 'two' && this.state.gameBoard[i][j + 2] === 'two' && this.state.gameBoard[i][j + 3] === 'two') {
                     console.log("player 2 wins rows")
                     this.setState({playerTwoWin: true})
+                    this.setState({killGame: true})
                 }
             }
         }
@@ -78,9 +83,11 @@ class Game extends Component {
                 if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i - 1][j + 1] === 'one' && this.state.gameBoard[i - 2][j + 2] === 'one' && this.state.gameBoard[i - 3][j + 3] === 'one') {
                     console.log('Player 1 wins Diag Up')
                     this.setState({playerOneWin: true})
+                    this.setState({killGame: true})
                 } else if (this.state.gameBoard[i][j] === 'two' && this.state.gameBoard[i - 1][j + 1] === 'two' && this.state.gameBoard[i - 2][j + 2] === 'two' && this.state.gameBoard[i - 3][j + 3] === 'two') {
                     console.log('Player 2 wins Diag Up')
                     this.setState({playerTwoWin: true})
+                    this.setState({killGame: true})
                 }
             }
         }
@@ -91,9 +98,11 @@ class Game extends Component {
                 if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i + 1][j + 1] === 'one' && this.state.gameBoard[i + 2][j + 2] === 'one' && this.state.gameBoard[i + 3][j + 3] === 'one') {
                     console.log('Player 1 wins Diag Down')
                     this.setState({playerOneWin: true})
+                    this.setState({killGame: true})
                 } else if (this.state.gameBoard[i][j] === 'two' && this.state.gameBoard[i + 1][j + 1] === 'two' && this.state.gameBoard[i + 2][j + 2] === 'two' && this.state.gameBoard[i + 3][j + 3] === 'two') {
                     console.log('Player 2 wins Diag Down')
                     this.setState({playerTwoWin: true})
+                    this.setState({killGame: true})
                 }
             }
         }
@@ -147,6 +156,7 @@ class Game extends Component {
         this.setState({ player2: false })
         this.setState({playerOneWin: false})
         this.setState({playerTwoWin: false})
+        this.setState({killGame: false})
     }
  
 
@@ -164,18 +174,22 @@ class Game extends Component {
                 })}
                 </GameGrid>
                 <div>
-                    
-                    <button onClick={() => this.playerMove(0)}>Column1</button>
-                    <button onClick={() => this.playerMove(1)}>Column2</button>
-                    <button onClick={() => this.playerMove(2)}>Column3</button>
-                    <button onClick={() => this.playerMove(3)}>Column4</button>
-                    <button onClick={() => this.playerMove(4)}>Column5</button>
-                    <button onClick={() => this.playerMove(5)}>Column6</button>
-                    <button onClick={() => this.playerMove(6)}>Column7</button>
+                    {this.state.killGame ? "Game Over! Press New Game to start over!" :
+                        <div>
+                            <button onClick={() => this.playerMove(0)}>Column1</button>
+                            <button onClick={() => this.playerMove(1)}>Column2</button>
+                            <button onClick={() => this.playerMove(2)}>Column3</button>
+                            <button onClick={() => this.playerMove(3)}>Column4</button>
+                            <button onClick={() => this.playerMove(4)}>Column5</button>
+                            <button onClick={() => this.playerMove(5)}>Column6</button>
+                            <button onClick={() => this.playerMove(6)}>Column7</button>
+                        </div>}
                 </div>
                 <div><button onClick={this.boardReset}>New Game</button>
-                {this.state.playerOneWin ? <div>Player one wins!</div> : '' }
-                {this.state.playerTwoWin ? <div>Player two wins!</div> : '' }
+                    {this.state.player1 ? <div>Player One's Turn (Black Token) </div> : ''}
+                    {this.state.player2 ? <div>Player Two's Turn (Red Token) </div> : ''}
+                    {this.state.playerOneWin ? <div>Player one wins!</div> : ''}
+                    {this.state.playerTwoWin ? <div>Player two wins!</div> : ''}
                 </div>
             </Container>
         );
