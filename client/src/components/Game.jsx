@@ -5,13 +5,18 @@ const GameGrid = styled.div`
 display: table;         
 width: auto;         
 background-color: #eee;         
-border: 1px solid #666666;         
+border: 2px solid #666666;         
 border-spacing: 5px;
+padding: 10px;
 
+`
+const Container = styled.div`
+padding: 10px;
 `
 
 const GameRows = styled.div`
 display: table-row;
+border: 2px solid #666666; 
 width: auto;
 clear: both;
 
@@ -19,9 +24,32 @@ clear: both;
 
 const GameColumns = styled.div`
 float: left; 
-display: table-column;         
-width: 200px;         
+display: table-column; 
+border: 2px solid #666666;         
+width: 56px;       
+height: 56px;  
+text-align: center;
 background-color: #ccc;
+`
+
+const PLayerOneChip = styled.div`
+float: left; 
+display: table-column; 
+border: 2px solid #666666;         
+width: 56px;       
+height: 56px;  
+text-align: center;
+background-color: black;
+`
+
+const PlayerTwoChip = styled.div`
+float: left; 
+display: table-column; 
+border: 2px solid #666666;         
+width: 56px;       
+height: 56px;  
+text-align: center;
+background-color: red;
 `
 
 class Game extends Component {
@@ -82,7 +110,9 @@ class Game extends Component {
             }
         }
     }
+    updateBoard = () => {
 
+    }
     playerMove = (index) => {
         if (this.state.player1 === true) {
             for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
@@ -90,6 +120,7 @@ class Game extends Component {
                     let newGameBoard = this.state.gameBoard
                     newGameBoard[i][index] = 1;
                     this.setState({gameBoard: newGameBoard})
+                    this.updateBoard()
                     this.winConditionRow()
                     this.winConditionColumn()
                     this.winConditionDiagUp()
@@ -105,6 +136,7 @@ class Game extends Component {
                     let newGameBoard = this.state.gameBoard
                     newGameBoard[i][index] = 2;
                     this.setState({gameBoard: newGameBoard})
+                    this.updateBoard()
                     this.winConditionRow()
                     this.winConditionColumn()
                     this.winConditionDiagUp()
@@ -132,13 +164,28 @@ class Game extends Component {
  
 
     render() {
+        
+        // const changeColor = () => {
+        //     for (let i = 0; i < this.state.gameBoard.length; i++){
+        //         for (let j = 0; j < 6; j++){
+        //             if (this.state.gameBoard[i][j] === 1) {
+        //                 this.state.gameBoard[i][j] === <PlayerOneChip>1 </PlayerOneChip>
+        //             }
+        //         }
+        //     }
+        // }
 
         return (
-            <div>
+            <Container>
                 <GameGrid>
                 {this.state.gameBoard.map((array, index) => {
                     return <GameRows
                      key={index}>{array.map((each)=>{
+                        if ( {each} === 1 ) 
+                        return <PLayerOneChip>{each}</PLayerOneChip>
+                        else if ({each} === 2 ) 
+                         return <PlayerTwoChip>{each}</PlayerTwoChip>
+                         else 
                          return <GameColumns>{each}</GameColumns>
                      })}</GameRows>
                 })}
@@ -154,7 +201,7 @@ class Game extends Component {
                     <button onClick={() => this.playerMove(6)}>Column7</button>
                 </div>
                 <div><button onClick={this.boardReset}>New Game</button></div>
-            </div>
+            </Container>
         );
     }
 }
