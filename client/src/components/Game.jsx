@@ -64,7 +64,7 @@ class Game extends Component {
     }
     winConditionRow = () => {
         for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
-            for (let j = 0; j < 3; j++) {
+            for (let j = 0; j < 4; j++) {
                 if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i][j + 1] === 'one' && this.state.gameBoard[i][j + 2] === 'one' && this.state.gameBoard[i][j + 3] === 'one') {
                     console.log("player 1 wins rows")
                     this.setState({playerOneWin: true})
@@ -79,7 +79,7 @@ class Game extends Component {
     }
     winConditionDiagUp = () => {
         for (let i = this.state.gameBoard.length - 1; i > 3; i--) {
-            for (let j = 0; j < 3; j++) {
+            for (let j = 0; j < 4; j++) {
                 if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i - 1][j + 1] === 'one' && this.state.gameBoard[i - 2][j + 2] === 'one' && this.state.gameBoard[i - 3][j + 3] === 'one') {
                     console.log('Player 1 wins Diag Up')
                     this.setState({playerOneWin: true})
@@ -94,7 +94,7 @@ class Game extends Component {
     }
     winConditionDiagDown = () => {
         for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
+            for (let j = 0; j < 4; j++) {
                 if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i + 1][j + 1] === 'one' && this.state.gameBoard[i + 2][j + 2] === 'one' && this.state.gameBoard[i + 3][j + 3] === 'one') {
                     console.log('Player 1 wins Diag Down')
                     this.setState({playerOneWin: true})
