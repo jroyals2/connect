@@ -13,8 +13,12 @@ class Landing extends Component {
   state = {
     users: [],
     loggedIn: false,
+    newPlayerForm: false,
     redirect: false,
-    onePlayerGame: false
+    newUser: {
+        name: '',
+        password: ''
+    }
   }
 
  async componentWillMount() {
@@ -27,6 +31,30 @@ class Landing extends Component {
       this.setState({users: res.data})
   }
 
+  handleChange = (event) => {
+  const attribute = event.target.name
+  const newUser = {...this.state.newUser}
+  newUser[attribute] = event.target.value
+  this.setState({newUser})
+  }
+
+  handleSubmit = async (event) => {
+    event.preventDefault()
+    const payload = {
+        name: this.state.newUser.name,
+        password: this.state.newUser.password
+    }
+    const emptyForm = {
+        name: '',
+        password: ''
+    }
+    await axios.post('/users', payload) 
+    this.getUsers()
+    this.toggleNewPlayerForm()
+    this.setState({newUser: emptyForm})
+  }
+
+
   toggleLoggedIn = () => {
     this.setState({loggedIn : !this.state.loggedIn})
   }
@@ -36,12 +64,12 @@ class Landing extends Component {
   toggleRedirectOnePlayerGame = () => {
     this.setState({onePlayerGame: !this.state.redirect})
 }
+toggleNewPlayerForm = () => {
+    this.setState({newPlayerForm: !this.state.newPlayerForm})
+}
   render() {
     if (this.state.redirect) {
         return <Redirect to='/game' />
-    }
-    if (this.state.onePlayerGame) {
-        return <Redirect to='/oneplayergame' />
     }
     // this will be the view of the app when you are logged out
     const isLoggedOut = <div>
@@ -52,7 +80,7 @@ class Landing extends Component {
           return <li><Link to={`/users/${user.id}`}>{user.name}</Link></li>
         })}
       </ul>
-      <button onClick={this.toggleLoggedIn}>Create A New User!</button>
+      <button onClick={this.toggleNewPlayerForm}>Create A New User!</button>
       <button onClick={this.toggleRedirect}>New Two Player Game</button>
     </div>
     // this will be the logged in view of the app
@@ -63,11 +91,28 @@ class Landing extends Component {
       <button onClick={ () => this.toggleLoggedIn}>Log Out</button>
 
     </div>
+
+    const newUserForm = <div>
+            <form onSubmit={this.handleSubmit}>
+                <div>
+                <label htmlFor="name">User Name</label>
+                <input name="name" type="text" onChange={this.handleChange} value={this.state.newUser.name}/>
+                </div>
+                <div>
+                <label htmlFor="password">Password</label>
+                <input name="password" type="text" onChange={this.handleChange} value={this.state.newUser.password}/>
+                </div>
+                <div>
+                    <button>Submit</button>
+                </div>
+            </form>
+        </div>
     return (
 
       <div>
         <h1>Welcome to Connect Four!</h1>
         {this.state.loggedIn ? isLoggedIn : isLoggedOut}
+        {this.state.newPlayerForm ? newUserForm : ''}
       </div>
     );
   }
