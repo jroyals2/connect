@@ -222,23 +222,23 @@ class Game extends Component {
 
         // This allows players to create their own name
 
-        const setup = 
-        <div>
-            <div>Please Enter Your Names! </div>
-            <div>Player 1 Goes First!</div>
-            <form>
-                <div>
-                    <label htmlFor="playerOneName">Player One Name: </label>
-                    <input type="text" name="playerOneName" onChange={this.handleChangeOne} value={this.state.playerOneName} placeholder="player one name" />
-                </div>
-                <div>
-                    <label htmlFor="playerTwoName">Player Two Name: </label>
-                    <input type="text" name="playerTwoName" onChange={this.handleChangeTwo} value={this.state.playerTwoName} placeholder="player two name" />
-                </div>
-                <div><button onClick={this.toggleFilledOut}>Begin</button></div>
-                <Link to="/">Home</Link>
-            </form>
-        </div>
+        const setup =
+            <div>
+                <div>Please Enter Your Names! </div>
+                <div>Player 1 Goes First!</div>
+                <form>
+                    <div>
+                        <label htmlFor="playerOneName">Player One Name: </label>
+                        <input type="text" name="playerOneName" onChange={this.handleChangeOne} value={this.state.playerOneName} placeholder="player one name" />
+                    </div>
+                    <div>
+                        <label htmlFor="playerTwoName">Player Two Name: </label>
+                        <input type="text" name="playerTwoName" onChange={this.handleChangeTwo} value={this.state.playerTwoName} placeholder="player two name" />
+                    </div>
+                    <div><button onClick={this.toggleFilledOut}>Begin</button></div>
+                    <Link to="/">Home</Link>
+                </form>
+            </div>
 
         return (
             <div>
