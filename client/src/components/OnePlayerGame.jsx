@@ -48,7 +48,7 @@ class OnePlayerGame extends Component {
     // These are all the win conditions
     winConditionColumn = () => {
         for (let i = this.state.gameBoard.length - 1; i > 3; i--) {
-            for (let j = 0; j < 6; j++) {
+            for (let j = 0; j < 7; j++) {
                 if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i - 1][j] === 'one' && this.state.gameBoard[i - 2][j] === 'one' && this.state.gameBoard[i - 3][j] === 'one') {
                     console.log('player 1 wins column')
                     this.setState({ playerOneWin: true })
@@ -119,27 +119,32 @@ class OnePlayerGame extends Component {
                     this.winConditionDiagDown()
                     this.setState({ computerTurn: true })
                     this.setState({ player1: false })
+                    this.computerMove()
                     break;
                 }
             }
         }  
     }; 
-        //          (this.state.computerTurn === true) {
-        //     for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
-        //         if (this.state.gameBoard[i][] === 0) {
-        //             let newGameBoard = this.state.gameBoard
-        //             newGameBoard[i][index] = 'two';
-        //             this.setState({ gameBoard: newGameBoard })
-        //             this.winConditionRow()
-        //             this.winConditionColumn()
-        //             this.winConditionDiagUp()
-        //             this.winConditionDiagDown()
-        //             this.setState({ player1: true })
-        //             this.setState({ computerTurn: false })
-        //             break;
-        //         }
-        //     }
-        // }
+
+    computerMove = () => { 
+       let index = (Math.floor(Math.random(7*1)))
+        if (this.state.computerTurn === true) {
+            for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
+                if (this.state.gameBoard[i][index] === 0) {
+                    let newGameBoard = this.state.gameBoard
+                    newGameBoard[i][index] = 'two';
+                    this.setState({ gameBoard: newGameBoard })
+                    this.winConditionRow()
+                    this.winConditionColumn()
+                    this.winConditionDiagUp()
+                    this.winConditionDiagDown()
+                    this.setState({ player1: true })
+                    this.setState({ computerTurn: false })
+                    break;
+                }
+            }
+        }
+    }
 
     render() {
 

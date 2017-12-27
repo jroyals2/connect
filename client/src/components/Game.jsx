@@ -70,8 +70,8 @@ class Game extends Component {
 
     // These are all the win conditions
     winConditionColumn = () => {
-        for (let i = this.state.gameBoard.length - 1; i > 3; i--) {
-            for (let j = 0; j < 6; j++) {
+        for (let i = this.state.gameBoard.length - 1; i > 2; i--) {
+            for (let j = 0; j < 7; j++) {
                 if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i - 1][j] === 'one' && this.state.gameBoard[i - 2][j] === 'one' && this.state.gameBoard[i - 3][j] === 'one') {
                     console.log('player 1 wins column')
                     this.setState({ playerOneWin: true })
