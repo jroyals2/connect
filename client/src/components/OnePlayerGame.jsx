@@ -40,7 +40,9 @@ class OnePlayerGame extends Component {
             [0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0]],
-        computerWins: false
+        computerWins: false,
+        player1: true,
+        computerTurn: false
     }
 
     // These are all the win conditions
@@ -104,6 +106,40 @@ class OnePlayerGame extends Component {
             }
         }
     }
+    playerMove = (index) => {
+        if (this.state.player1 === true) {
+            for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
+                if (this.state.gameBoard[i][index] === 0) {
+                    let newGameBoard = this.state.gameBoard
+                    newGameBoard[i][index] = 'one';
+                    this.setState({ gameBoard: newGameBoard })
+                    this.winConditionRow()
+                    this.winConditionColumn()
+                    this.winConditionDiagUp()
+                    this.winConditionDiagDown()
+                    this.setState({ computerTurn: true })
+                    this.setState({ player1: false })
+                    break;
+                }
+            }
+        }  
+    }; 
+        //          (this.state.computerTurn === true) {
+        //     for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
+        //         if (this.state.gameBoard[i][] === 0) {
+        //             let newGameBoard = this.state.gameBoard
+        //             newGameBoard[i][index] = 'two';
+        //             this.setState({ gameBoard: newGameBoard })
+        //             this.winConditionRow()
+        //             this.winConditionColumn()
+        //             this.winConditionDiagUp()
+        //             this.winConditionDiagDown()
+        //             this.setState({ player1: true })
+        //             this.setState({ computerTurn: false })
+        //             break;
+        //         }
+        //     }
+        // }
 
     render() {
 
