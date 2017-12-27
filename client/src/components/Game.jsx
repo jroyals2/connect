@@ -48,7 +48,8 @@ class Game extends Component {
         killGame: false,
         playerOneName: 'player one',
         playerTwoName: 'player two',
-        filledOut: false
+        filledOut: false,
+        tiedGame: false
 
     }
 
@@ -130,6 +131,23 @@ class Game extends Component {
         }
     }
 
+    checkForTie = () => {
+        let acc = 0;
+        for (let i = 0; i < this.state.gameBoard.length; i++) {
+            for (let j = 0; j < 7; j++) {
+                if (this.state.gameBoard[i][j] === 0) {
+                    acc += 1
+                } else {
+                    acc += 0
+                }
+            }
+        }
+        if (acc === 0) {
+            this.setState({ tiedGame: true })
+        }
+
+    }
+
     // This is the Player move logic for both players
 
     playerMove = (index) => {
@@ -143,6 +161,7 @@ class Game extends Component {
                     this.winConditionColumn()
                     this.winConditionDiagUp()
                     this.winConditionDiagDown()
+                    this.checkForTie()
                     this.setState({ player2: true })
                     this.setState({ player1: false })
                     break;
@@ -158,6 +177,7 @@ class Game extends Component {
                     this.winConditionColumn()
                     this.winConditionDiagUp()
                     this.winConditionDiagDown()
+                    this.checkForTie()
                     this.setState({ player1: true })
                     this.setState({ player2: false })
                     break;
@@ -200,6 +220,7 @@ class Game extends Component {
                 })}
             </GameGrid>
             <div>
+                {this.state.tiedGame ? "Tied Game Start Over" : '' }
                 {this.state.killGame ? "Game Over! Press New Game to start over!" :
                     <div>
                         <button onClick={() => this.playerMove(0)}>Column1</button>
