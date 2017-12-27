@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import {  Redirect } from 'react-router-dom'
+import {  Redirect, Link } from 'react-router-dom'
 import axios from 'axios'
 
 class Landing extends Component {
@@ -49,7 +49,7 @@ class Landing extends Component {
       <h3>To start a two player game press the New Two Player Game button!</h3>
       <ul>
         {this.state.users.map((user) => {
-          return <li>{user.name}</li>
+          return <li><Link to={`/users/${user.id}`}>{user.name}</Link></li>
         })}
       </ul>
       <button onClick={this.toggleLoggedIn}>Create A New User!</button>
