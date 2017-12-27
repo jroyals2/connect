@@ -72,6 +72,7 @@ toggleNewPlayerForm = () => {
         return <Redirect to='/game' />
     }
     // this will be the view of the app when you are logged out
+    
     const isLoggedOut = <div>
       <h3>Please select a user to get started for a one player game. If you don't see your user then create a new one!</h3>
       <h3>To start a two player game press the New Two Player Game button!</h3>
@@ -83,6 +84,7 @@ toggleNewPlayerForm = () => {
       <button onClick={this.toggleNewPlayerForm}>Create A New User!</button>
       <button onClick={this.toggleRedirect}>New Two Player Game</button>
     </div>
+
     // this will be the logged in view of the app
     const isLoggedIn = <div>
       <h3>Select a Game or Press New Game to Get Started!</h3>

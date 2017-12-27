@@ -187,6 +187,9 @@ class Game extends Component {
 
 
     render() {
+
+        // This is the game grid after you enter your names
+
         const gameSetup = <Container>
             <GameGrid>
                 {this.state.gameBoard.map((array, index) => {
@@ -216,6 +219,8 @@ class Game extends Component {
                 <Link to="/">Home</Link>
             </div>
         </Container>
+
+        // This allows players to create their own name
 
         const setup = 
         <div>
