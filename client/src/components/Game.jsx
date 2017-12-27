@@ -46,8 +46,8 @@ class Game extends Component {
         playerOneWin: false,
         playerTwoWin: false,
         killGame: false,
-        playerOneName: '',
-        playerTwoName: '',
+        playerOneName: 'player one',
+        playerTwoName: 'player two',
         filledOut: false
 
     }
@@ -218,7 +218,7 @@ class Game extends Component {
                     <label htmlFor="playerTwoName">Player Two Name: </label>
                     <input type="text" name="playerTwoName" onChange={this.handleChangeTwo} value={this.state.playerTwoName} placeholder="player two name" />
                 </div>
-                <div><button onClick={this.toggleFilledOut}>Submit</button></div>
+                <div><button onClick={this.toggleFilledOut}>Begin</button></div>
                 <Link to="/">Home</Link>
             </form>
         </div>
