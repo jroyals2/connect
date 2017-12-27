@@ -216,9 +216,11 @@ class Game extends Component {
                 <Link to="/">Home</Link>
             </div>
         </Container>
-        
+
         const setup = 
         <div>
+            <div>Please Enter Your Names! </div>
+            <div>Player 1 Goes First!</div>
             <form>
                 <div>
                     <label htmlFor="playerOneName">Player One Name: </label>
