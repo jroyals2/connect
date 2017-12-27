@@ -106,6 +106,23 @@ class OnePlayerGame extends Component {
             }
         }
     }
+    computerMove = () => { 
+        let index = Math.floor(Math.random() * 6)
+             for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
+                 if (this.state.gameBoard[i][index] === 0) {
+                     let newGameBoard = this.state.gameBoard
+                     newGameBoard[i][index] = 'two'
+                     this.setState({ gameBoard: newGameBoard })
+                     this.winConditionRow()
+                     this.winConditionColumn()
+                     this.winConditionDiagUp()
+                     this.winConditionDiagDown()
+                     this.setState({ player1: true })
+                     this.setState({ computerTurn: false })
+                     break;
+                 }
+           }
+     }
     playerMove = (index) => {
         if (this.state.player1 === true) {
             for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
@@ -119,32 +136,14 @@ class OnePlayerGame extends Component {
                     this.winConditionDiagDown()
                     this.setState({ computerTurn: true })
                     this.setState({ player1: false })
-                    this.computerMove()
+                    setTimeout(this.computerMove(), 2000)
                     break;
                 }
             }
         }  
     }; 
 
-    computerMove = () => { 
-       let index = (Math.floor(Math.random(7*1)))
-        if (this.state.computerTurn === true) {
-            for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
-                if (this.state.gameBoard[i][index] === 0) {
-                    let newGameBoard = this.state.gameBoard
-                    newGameBoard[i][index] = 'two';
-                    this.setState({ gameBoard: newGameBoard })
-                    this.winConditionRow()
-                    this.winConditionColumn()
-                    this.winConditionDiagUp()
-                    this.winConditionDiagDown()
-                    this.setState({ player1: true })
-                    this.setState({ computerTurn: false })
-                    break;
-                }
-            }
-        }
-    }
+
 
     render() {
 
