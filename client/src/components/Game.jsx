@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
+import {Link} from 'react-router-dom'
 
 const GameGrid = styled.div`
 display: table;         
@@ -44,9 +45,25 @@ class Game extends Component {
         player2: false,
         playerOneWin: false,
         playerTwoWin: false,
-        killGame: false
+        killGame: false,
+        playerOneName: '',
+        playerTwoName: '',
+        filledOut: false
 
     }
+    toggleFilledOut = (event) => {
+        event.preventDefault()
+        this.setState({filledOut: !this.state.filledOut})
+    }
+    handleChangeOne = (event) => {
+        const playerOneName = event.target.value
+        this.setState({playerOneName})
+    }
+    handleChangeTwo = (event) => {
+        const playerTwoName = event.target.value
+        this.setState({playerTwoName})
+    }
+
     winConditionColumn = () => {
         for(let i = this.state.gameBoard.length - 1; i > 3; i--) {
             for (let j = 0; j < 6; j++){
@@ -157,41 +174,59 @@ class Game extends Component {
         this.setState({playerOneWin: false})
         this.setState({playerTwoWin: false})
         this.setState({killGame: false})
+        this.setState({filledOut: false})
     }
  
 
     render() {
-    
+    const gameSetup =  <Container>
+    <GameGrid>
+    {this.state.gameBoard.map((array, index) => {
+        return <GameRows
+         key={index}>{array.map((each, index)=>{
+             return <GameColumns key={index} className={each}>{each}</GameColumns>
+         })}</GameRows>
+    })}
+    </GameGrid>
+    <div>
+        {this.state.killGame ? "Game Over! Press New Game to start over!" :
+            <div>
+                <button onClick={() => this.playerMove(0)}>Column1</button>
+                <button onClick={() => this.playerMove(1)}>Column2</button>
+                <button onClick={() => this.playerMove(2)}>Column3</button>
+                <button onClick={() => this.playerMove(3)}>Column4</button>
+                <button onClick={() => this.playerMove(4)}>Column5</button>
+                <button onClick={() => this.playerMove(5)}>Column6</button>
+                <button onClick={() => this.playerMove(6)}>Column7</button>
+            </div>}
+    </div>
+    <div><button onClick={this.boardReset}>New Game</button>
+        {this.state.player1 ? <div>{this.state.playerOneName}'s turn (Black Token) </div> : ''}
+        {this.state.player2 ? <div>{this.state.playerTwoName}'s turn (Red Token) </div> : ''}
+        {this.state.playerOneWin ? <div>{this.state.playerOneName} wins!</div> : ''}
+        {this.state.playerTwoWin ? <div>{this.state.playerTwoName} wins!</div> : ''}
+        <Link to="/">Home</Link>
+    </div>
+</Container>
+        const setup = <div>
+            <form>
+                <div>
+                    <label htmlFor="playerOneName">Player One Name: </label>
+                    <input type="text" name="playerOneName" onChange={this.handleChangeOne} value={this.state.playerOneName} placeholder="player one name" />
+                </div>
+                <div>
+                    <label htmlFor="playerTwoName">Player Two Name: </label>
+                    <input type="text" name="playerTwoName" onChange={this.handleChangeTwo} value={this.state.playerTwoName} placeholder="player two name" />
+                </div>
+                <div><button onClick={this.toggleFilledOut}>Submit</button></div>
+                <Link to="/">Home</Link>
+            </form>
+        </div>
 
         return (
-            <Container>
-                <GameGrid>
-                {this.state.gameBoard.map((array, index) => {
-                    return <GameRows
-                     key={index}>{array.map((each, index)=>{
-                         return <GameColumns key={index} className={each}>{each}</GameColumns>
-                     })}</GameRows>
-                })}
-                </GameGrid>
-                <div>
-                    {this.state.killGame ? "Game Over! Press New Game to start over!" :
-                        <div>
-                            <button onClick={() => this.playerMove(0)}>Column1</button>
-                            <button onClick={() => this.playerMove(1)}>Column2</button>
-                            <button onClick={() => this.playerMove(2)}>Column3</button>
-                            <button onClick={() => this.playerMove(3)}>Column4</button>
-                            <button onClick={() => this.playerMove(4)}>Column5</button>
-                            <button onClick={() => this.playerMove(5)}>Column6</button>
-                            <button onClick={() => this.playerMove(6)}>Column7</button>
-                        </div>}
-                </div>
-                <div><button onClick={this.boardReset}>New Game</button>
-                    {this.state.player1 ? <div>Player One's Turn (Black Token) </div> : ''}
-                    {this.state.player2 ? <div>Player Two's Turn (Red Token) </div> : ''}
-                    {this.state.playerOneWin ? <div>Player one wins!</div> : ''}
-                    {this.state.playerTwoWin ? <div>Player two wins!</div> : ''}
-                </div>
-            </Container>
+            <div>
+            { this.state.filledOut ? gameSetup : setup }
+            </div>
         );
     }
 }
