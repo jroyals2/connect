@@ -17,7 +17,7 @@ class App extends Component {
           <Route exact path="/" component={Landing} />
           <Route exact path="/users/:userId" component={SingleUserPage} />
           <Route exact path="/game" component={Game}/>
-          <Route exact path="users/:userId/oneplayergame" component={OnePlayerGame}/>
+          <Route exact path="/users/:userId/oneplayergame" component={OnePlayerGame}/>
         </Switch>
       </div>
       </Router>
