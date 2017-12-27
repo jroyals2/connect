@@ -31,8 +31,10 @@ class SingleUserPage extends Component {
     }
 
     render() {
+        
         if (this.state.onePlayerGame) {
-            return <Redirect to='/oneplayergame' />
+
+            return <Redirect to={`/users/${this.props.match.params.userId}/oneplayergame`}/>
         }
         if (this.state.redirect) {
             return <Redirect to='/' />

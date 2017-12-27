@@ -4,7 +4,7 @@ class OnePlayerGame extends Component {
     render() {
         return (
             <div>
-                Hello from One Player Game
+                Is this working?
             </div>
         );
     }
