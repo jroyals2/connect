@@ -203,6 +203,7 @@ class Game extends Component {
         this.setState({ playerTwoWin: false })
         this.setState({ killGame: false })
         this.setState({ filledOut: false })
+        this.setState({ tiedGame: false })
     }
 
 
@@ -220,7 +221,7 @@ class Game extends Component {
                 })}
             </GameGrid>
             <div>
-                {this.state.tiedGame ? "Tied Game Start Over" : '' }
+                {this.state.tiedGame ? "Tied Game Start Over" : ''}
                 {this.state.killGame ? "Game Over! Press New Game to start over!" :
                     <div>
                         <button onClick={() => this.playerMove(0)}>Column1</button>

@@ -11,6 +11,7 @@ font-size: 0px;
 `
 const Container = styled.div`
 padding: 10px;
+
 `
 
 const GameRows = styled.div`
@@ -47,7 +48,7 @@ class OnePlayerGame extends Component {
 
     // These are all the win conditions
     winConditionColumn = () => {
-        for (let i = this.state.gameBoard.length - 1; i > 3; i--) {
+        for (let i = this.state.gameBoard.length - 1; i > 2; i--) {
             for (let j = 0; j < 7; j++) {
                 if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i - 1][j] === 'one' && this.state.gameBoard[i - 2][j] === 'one' && this.state.gameBoard[i - 3][j] === 'one') {
                     console.log('player 1 wins column')
@@ -106,6 +107,9 @@ class OnePlayerGame extends Component {
             }
         }
     }
+
+    // AI for the computer to block you from a win
+    
     computerMove = () => { 
         let index = Math.floor(Math.random() * 6)
              for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
