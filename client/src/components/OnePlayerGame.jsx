@@ -109,7 +109,18 @@ class OnePlayerGame extends Component {
     }
 
     // AI for the computer to block you from a win
-    
+    // computerCheckForBlockDiaDown = () => {
+    //     for (let i = 0; i < 4; i++) {
+    //         for (let j = 0; j < 5; j++) {
+    //             if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i + 1][j + 1] === 'one' && this.state.gameBoard[i + 2][j + 2] === 'one') {
+    //                 console.log('Player 1 is close to victory diag down')
+    // }
+
+
+
+
+
+
     computerMove = () => { 
         let index = Math.floor(Math.random() * 6)
              for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
