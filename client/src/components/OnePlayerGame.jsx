@@ -128,29 +128,31 @@ class OnePlayerGame extends Component {
             }
         }
     }
-    computerCheckForBlockColumn = () => {
-        for (let i = this.state.gameBoard.length - 1; i > 3; i--) {
-            for (let j = 0; j < 7; j++) {
-                if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i - 1][j] === 'one' && this.state.gameBoard[i - 2][j] === 'one') {
-                    console.log('player 1 close to win column')
-                    let newGameBoard = this.state.gameBoard;
-                    newGameBoard[0][0] = 'two'
-                    this.setState({ gameBoard: newGameBoard })
-                    this.setState({ player1: true })
-                    this.setState({ computerTurn: false })
-                    break;
-                } else {
-                    console.log("keep going")
-                }
-            }
-        }
-    }
     computerCheckForBlockRow = () => {
         for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
             for (let j = 0; j < 5; j++) {
                 if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i][j + 1] === 'one' && this.state.gameBoard[i][j + 2] === 'one') {
                     console.log("player 1 close to win rows")
 
+                }
+            }
+        }
+    }
+    computerCheckForBlockColumn = () => {
+        for (let i = this.state.gameBoard.length - 1; i > 3; i--) {
+            for (let j = 0; j < 7; j++) {
+                if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i - 1][j] === 'one' && this.state.gameBoard[i - 2][j] === 'one') {
+                    console.log('player 1 close to win column')
+                    let newGameBoard = this.state.gameBoard;
+                    // newGameBoard[0][0] = 'two'
+                    this.setState({ gameBoard: newGameBoard })
+                    this.setState({ player1: true })
+                    this.setState({ computerTurn: false })
+                } else {
+                    console.log("keep going")
+                    this.setState({ player1: false })
+                    this.setState({ computerTurn: true })
+                    
                 }
             }
         }
