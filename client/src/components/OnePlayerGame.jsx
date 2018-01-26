@@ -43,7 +43,8 @@ class OnePlayerGame extends Component {
             [0, 0, 0, 0, 0, 0, 0]],
         computerWins: false,
         player1: true,
-        computerTurn: false
+        computerTurn: false,
+        computerBlock: false,
     }
 
     // These are all the win conditions
@@ -139,15 +140,16 @@ class OnePlayerGame extends Component {
         }
     }
     computerCheckForBlockColumn = () => {
-        for (let i = this.state.gameBoard.length - 1; i > 3; i--) {
+        for (let i = this.state.gameBoard.length - 1; i > 2; i--) {
             for (let j = 0; j < 7; j++) {
-                if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i - 1][j] === 'one' && this.state.gameBoard[i - 2][j] === 'one') {
+                if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i - 1][j] === 'one' && this.state.gameBoard[i - 2][j] === 'one' && this.state.gameBoard[i - 3][j] === 0) {
                     console.log('player 1 close to win column')
                     let newGameBoard = this.state.gameBoard;
-                    // newGameBoard[0][0] = 'two'
+                    newGameBoard[i-3][j] = 'two'
                     this.setState({ gameBoard: newGameBoard })
                     this.setState({ player1: true })
                     this.setState({ computerTurn: false })
+                    this.setState({ computerBlock: true })
                 } else {
                     console.log("keep going")
                     this.setState({ player1: false })
@@ -161,14 +163,19 @@ class OnePlayerGame extends Component {
 
 
 
-    computerMove = () => {
-        this.computerCheckForBlockColumn()
+    computerMove = async () => {
+        await this.computerCheckForBlockColumn()
         let index = Math.floor(Math.random() * 6)
         {
             for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
                 if (this.state.gameBoard[i][index] === 0) {
                     let newGameBoard = this.state.gameBoard
-                    newGameBoard[i][index] = 'two'
+                    if(!this.state.computerBlock) {
+                        newGameBoard[i][index] = 'two'
+                    }
+                    if (this.state.computerBlock) {
+                        this.setState({ computerBlock: false })
+                    }
                     this.setState({ gameBoard: newGameBoard })
                     this.winConditionRow()
                     this.winConditionColumn()
