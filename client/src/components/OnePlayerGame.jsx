@@ -109,7 +109,8 @@ class OnePlayerGame extends Component {
         }
     }
 
-    // AI for the computer to block you from a win
+    //////////////// AI for the computer to block you from a win /////////////////////////
+
     computerCheckForBlockDiaDown = () => {
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 5; j++) {
@@ -160,7 +161,7 @@ class OnePlayerGame extends Component {
         }
     }
 
-
+////////////////////////////////////////////////////////////////////////////////////
 
 
     computerMove = async () => {
