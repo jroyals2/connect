@@ -202,7 +202,7 @@ class OnePlayerGame extends Component {
                     this.winConditionDiagDown()
                     this.setState({ computerTurn: true })
                     this.setState({ player1: false })
-                    setTimeout(this.computerMove(), 2000)
+                    setTimeout(()=>this.computerMove(), 1000)
                     break;
                 }
             }
