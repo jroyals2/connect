@@ -133,10 +133,34 @@ class OnePlayerGame extends Component {
     computerCheckForBlockRow = () => {
         for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
             for (let j = 0; j < 5; j++) {
-                if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i][j + 1] === 'one' && this.state.gameBoard[i][j + 2] === 'one' && this.state.gameBoard[i][j+3] === 0){
+                if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i][j + 1] === 'one' && this.state.gameBoard[i][j + 2] === 'one' && this.state.gameBoard[i][j + 3] === 0 && this.state.gameBoard[i + 1][j + 3] !== 0) {
                     console.log("player 1 close to win rows")
                     let newGameBoard = this.state.gameBoard;
-                    newGameBoard[i][j+3] = 'two'
+                    newGameBoard[i][j + 3] = 'two'
+                    this.setState({ gameBoard: newGameBoard })
+                    this.setState({ player1: true })
+                    this.setState({ computerTurn: false })
+                    this.setState({ computerBlock: true })
+                } else if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i][j + 1] === 'one' && this.state.gameBoard[i][j + 2] === 0 && this.state.gameBoard[i][j + 3] === 'one' && this.state.gameBoard[i + 1][j + 2] !== 0) {
+                    console.log("player 1 close to win rows")
+                    let newGameBoard = this.state.gameBoard;
+                    newGameBoard[i][j + 2] = 'two'
+                    this.setState({ gameBoard: newGameBoard })
+                    this.setState({ player1: true })
+                    this.setState({ computerTurn: false })
+                    this.setState({ computerBlock: true })
+                } else if (this.state.gameBoard[i][j] === 'one' && this.state.gameBoard[i][j + 1] === 0 && this.state.gameBoard[i][j + 2] === 'one' && this.state.gameBoard[i][j + 3] === 'one' && this.state.gameBoard[i + 1][j + 1] !== 0) {
+                    console.log("player 1 close to win rows")
+                    let newGameBoard = this.state.gameBoard;
+                    newGameBoard[i][j + 1] = 'two'
+                    this.setState({ gameBoard: newGameBoard })
+                    this.setState({ player1: true })
+                    this.setState({ computerTurn: false })
+                    this.setState({ computerBlock: true })
+                } else if (this.state.gameBoard[i][j] === 0 && this.state.gameBoard[i][j + 1] === 'one' && this.state.gameBoard[i][j + 2] === 'one' && this.state.gameBoard[i][j + 3] === 'one' && this.state.gameBoard[i + 1][j] !== 0) {
+                    console.log("player 1 close to win rows")
+                    let newGameBoard = this.state.gameBoard;
+                    newGameBoard[i][j] = 'two'
                     this.setState({ gameBoard: newGameBoard })
                     this.setState({ player1: true })
                     this.setState({ computerTurn: false })
