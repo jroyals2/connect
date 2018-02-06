@@ -135,7 +135,7 @@ class OnePlayerGame extends Component {
             }
         }
     }
-    
+
     computerCheckForBlockRow = () => {
         for (let i = this.state.gameBoard.length - 1; i >= 0; i--) {
             for (let j = 0; j < 5; j++) {
@@ -204,6 +204,7 @@ class OnePlayerGame extends Component {
                     newGameBoard[i-3][j] = 'two'
                     this.setState({ gameBoard: newGameBoard })
                     this.setTheState()
+                    break;
                 } else {
                     console.log("keep going")
                     this.setState({ player1: false })
@@ -218,6 +219,7 @@ class OnePlayerGame extends Component {
 
 
     computerMove = async () => {
+        // broken if each individual block condition evaluates computer moves x times.
         await this.computerCheckForBlockColumn()
         await this.computerCheckForBlockRow()
         let index = Math.floor(Math.random() * 6)

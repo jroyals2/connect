@@ -70,8 +70,8 @@ class Landing extends Component {
             <h3>Please select a user to get started for a one player game. If you don't see your user then create a new one!</h3>
             <h3>To start a two player game press the New Two Player Game button!</h3>
             <ul>
-                {this.state.users.map((user) => {
-                    return <li><Link to={`/users/${user.id}`}>{user.name}</Link></li>
+                {this.state.users.map((user, index) => {
+                    return <li key = {index}><Link to={`/users/${user.id}`}>{user.name}</Link></li>
                 })}
             </ul>
             <button onClick={this.toggleNewPlayerForm}>Create A New User!</button>
